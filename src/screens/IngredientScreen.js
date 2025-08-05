@@ -1,55 +1,68 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  Image, 
-  StyleSheet, 
-  SafeAreaView, 
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  SafeAreaView,
   ScrollView,
-  FlatList 
+  FlatList
 } from 'react-native';
+const IngredientScreen = () => {
+  const dish = {
+    name: 'Fried Avocado Tacos...... ',
+    description:
+      'Panco fried avocado, Mayo, panco fried avocado, Mayo, Panco fried avocado, avocado, Mayo, Panco fried avocado...',
+    image: require('../../assets/ingre.png'),
+  };
 
-const IngredientScreen = ({ route }) => {
-  const { dish } = route.params;
-
-  const renderIngredient = ({ item, index }) => (
-    <View style={styles.ingredientItem}>
-      <Text style={styles.ingredientName}>{item.name}</Text>
-      <Text style={styles.ingredientQuantity}>{item.quantity}</Text>
-    </View>
-  );
+  const ingredients = [
+    { name: 'Cauliflower', quantity: '01 Pc' },
+    { name: 'Mustard oil', quantity: '1/2 litres' },
+     { name: 'Cauliflower', quantity: '01 Pc' },
+    { name: 'Tomato', quantity: '01 Pc' },
+    
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Dish Header */}
-        <View style={styles.header}>
-          <Image 
-            source={{ uri: dish.category.image || 'https://via.placeholder.com/300' }} 
-            style={styles.dishImage}
-          />
-          <View style={styles.dishInfo}>
+        {/* Dish header row */}
+        <View style={styles.headerSection}>
+          <View style={styles.leftColumn}>
             <Text style={styles.dishName}>{dish.name}</Text>
-            <View style={styles.typeContainer}>
-              <Text style={styles.typeIndicator}>
-                {dish.type === 'VEG' ? '🟢' : '🔴'}
-              </Text>
-              <Text style={styles.typeText}>{dish.type}</Text>
+            <Text style={styles.description} numberOfLines={3}>
+              {dish.description}
+            </Text>
+            <View style={{marginTop:70}}>
+               <Text style={styles.ingredientsTitle}>Ingredients</Text>
+          <Text style={styles.servesText}>For 2 people</Text>
+             <View
+                style={{
+                  height: 1,
+                  backgroundColor: '#e0e0e0',
+                  width:'180%'
+                }}
+              />
             </View>
-            <Text style={styles.description}>{dish.description}</Text>
           </View>
+
+          <Image
+            source={dish.image}
+            style={styles.dishImage}
+            resizeMode='contain'
+          />
         </View>
 
-        {/* Ingredients Section */}
-        <View style={styles.ingredientsSection}>
-          <Text style={styles.sectionTitle}>Ingredients</Text>
-          <FlatList
-            data={dish.ingredients}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={renderIngredient}
-            scrollEnabled={false}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
-          />
+        {/* Ingredients box */}
+        <View style={styles.ingredientsBox}>
+           
+          {ingredients.map((item, index) => (
+            <View key={index} style={styles.ingredientRow}>
+              <Text style={styles.ingredientName}>{item.name}</Text>
+              <Text style={styles.ingredientQuantity}>{item.quantity}</Text>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -59,75 +72,59 @@ const IngredientScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  header: {
     backgroundColor: '#fff',
-    margin: 16,
-    borderRadius: 12,
-    padding: 16,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
-  dishImage: {
-    width: '100%',
-    height: 200,
-    borderRadius: 8,
-    backgroundColor: '#f0f0f0',
+  headerSection: {
+    flexDirection: 'row',
+    marginVertical: 16,
+    paddingVertical: 16,
+    marginLeft:20
   },
-  dishInfo: {
-    marginTop: 16,
+  leftColumn: {
+    flex: 1,
+    justifyContent: 'center',
+    marginTop:30,
+  
   },
   dishName: {
-    fontSize: 24,
+    fontSize: 17,
     fontWeight: '700',
     color: '#333',
-    marginBottom: 8,
-  },
-  typeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  typeIndicator: {
-    fontSize: 16,
-    marginRight: 8,
-  },
-  typeText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#666',
+    marginBottom: 10,
   },
   description: {
-    fontSize: 16,
+    fontSize: 13,
     color: '#666',
-    lineHeight: 22,
+    lineHeight: 20,
+    width:'100%'
   },
-  ingredientsSection: {
+ dishImage: {
+  width: 180,
+  height: 260,
+  
+},
+  ingredientsBox: {
     backgroundColor: '#fff',
-    margin: 16,
-    borderRadius: 12,
-    padding: 16,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    marginHorizontal: 16,
+    paddingHorizontal: 16,
+    marginBottom: 32,
   },
-  sectionTitle: {
+  ingredientsTitle: {
     fontSize: 20,
     fontWeight: '700',
     color: '#333',
+    marginBottom: 6,
+  },
+  servesText: {
+    fontSize: 14,
+    color: 'black',
     marginBottom: 16,
   },
-  ingredientItem: {
+  ingredientRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
+  
   },
   ingredientName: {
     fontSize: 16,
@@ -136,12 +133,8 @@ const styles = StyleSheet.create({
   },
   ingredientQuantity: {
     fontSize: 16,
-    color: '#666',
+    color: '#555',
     fontWeight: '500',
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#eee',
   },
 });
 

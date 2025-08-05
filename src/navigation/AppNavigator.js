@@ -8,20 +8,20 @@ const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Menu">
-        <Stack.Screen 
-          name="Menu" 
-          component={MenuScreen}
-          options={{ title: 'Party Menu Selection' }}
-        />
-        <Stack.Screen 
-          name="Ingredient" 
-          component={IngredientScreen}
-          options={{ title: 'Ingredients' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+   <NavigationContainer>
+  <Stack.Navigator initialRouteName="Menu" screenOptions={{ headerShown: false }}>
+    <Stack.Screen 
+      name="Menu" 
+      component={MenuScreen}
+    />
+    <Stack.Screen 
+      name="Ingredient" 
+      component={IngredientScreen}
+      options={{ headerShown: true, title: 'Ingredient list' }} 
+    />
+  </Stack.Navigator>
+</NavigationContainer>
+
   );
 };
 

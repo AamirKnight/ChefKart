@@ -2,7 +2,7 @@ export const dishData=[
  {
  "categoryId": 1,
  
- "mealType": "MAIN COURSE",
+ "mealType": "STARTER",
  "type": "VEG",
 "description": "Paneer cubes in spicy onion gravy with onions and capsicum cubes.",
  "image": null,
@@ -24,7 +24,7 @@ export const dishData=[
   {
   "categoryId": 1,
   "mealType": "MAIN COURSE",
-  "type": "VEG",
+  "type": "NON-VEG",
   "description": "Paneer cubes in spicy onion gravy with onions and capsicum cubes.",
   "image": null,
   "category": {
@@ -635,4 +635,4 @@ export const dishData=[
 
 
   export const mealTypes = ["STARTER", "MAIN COURSE", "DESSERT", "SIDES"];
-export const dishTypes = ["VEG", "NON_VEG"];
+export const dishTypes = ["VEG", "NON-VEG"];

@@ -3,59 +3,73 @@ import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 
 const TabButton = ({ title, isActive, onPress, count = 0 }) => {
   return (
-    <TouchableOpacity 
-      style={[styles.tab, isActive && styles.activeTab]} 
+    <TouchableOpacity
+      style={[styles.tab, isActive && styles.activeTab]}
       onPress={onPress}
+      activeOpacity={0.8}
     >
-      <Text style={[styles.tabText, isActive && styles.activeTabText]}>
-        {title}
-      </Text>
-      {count > 0 && (
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>{count}</Text>
-        </View>
-      )}
+      <View style={styles.tabContent}>
+        <Text 
+          style={[styles.tabText, isActive && styles.activeTabText]}
+          numberOfLines={1}
+        >
+          {title}
+        </Text>
+        
+        <Text 
+          style={[styles.countText, isActive && styles.activeCountText]}
+          numberOfLines={1}
+        >
+          {count}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   tab: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 8,
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    // Remove flex: 1 to allow dynamic width
+    height: 35,
     marginHorizontal: 2,
+    paddingHorizontal: 12, // Increased padding for better text spacing
     borderRadius: 8,
-    position: 'relative',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 40, // Minimum width to prevent too small tabs
+    maxWidth: 150, // Maximum width to prevent overly long tabs
   },
   activeTab: {
-    backgroundColor: '#FF6B35',
+    backgroundColor: '#FF941A',
+    borderColor: '#FF941A',
+  },
+  tabContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 1, // Allow content to shrink if needed
   },
   tabText: {
-    fontSize: 14,
+    fontSize: 11,
     fontWeight: '500',
-    color: '#666',
+    color: '#333',
+    flexShrink: 1, // Allow text to shrink if needed
   },
   activeTabText: {
     color: '#fff',
   },
-  badge: {
-    position: 'absolute',
-    top: -5,
-    right: -5,
-    backgroundColor: '#FF0000',
-    borderRadius: 10,
-    minWidth: 20,
-    height: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+  countText: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: '#666',
+    marginLeft: 4,
+    flexShrink: 0, // Don't shrink the count
   },
-  badgeText: {
+  activeCountText: {
     color: '#fff',
-    fontSize: 12,
-    fontWeight: 'bold',
   },
 });
 
